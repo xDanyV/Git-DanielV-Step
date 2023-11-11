@@ -1,5 +1,6 @@
 var editando = false;
 var filaE = null;
+let contador_Peliculas = 0;
 document.getElementById("form_1").addEventListener('submit', function (e) {
 
 
@@ -18,6 +19,8 @@ document.getElementById("form_1").addEventListener('submit', function (e) {
         editarPelicula(pelicula, filaE)
     } else {
         agregarPelicula(pelicula);
+        contador_Peliculas++;
+        document.querySelector("span").innerHTML = contador_Peliculas;
     }
 
 
@@ -65,6 +68,8 @@ function agregarPelicula(pelicula) {
     boton.classList.add('btn', 'btn-danger');
     boton.onclick = function () {
         tbody.removeChild(fila)
+        contador_Peliculas--;
+        document.querySelector("span").innerHTML = contador_Peliculas;
     }
     td.appendChild(boton);
     fila.appendChild(td);
@@ -86,3 +91,11 @@ function agregarPelicula(pelicula) {
     tbody.appendChild(fila);
 
 }
+document.getElementById("btnRecomendar").addEventListener("click",function(){
+    let rows = document.getElementById("tablaPeliculas").rows; 
+    let numeroR = Math.floor(Math.random()*rows.length);
+
+    let pelicula = rows[numeroR].cells[0].innerHTML;
+
+    alert("Te recomiendo la pelicula: " + pelicula);
+});
